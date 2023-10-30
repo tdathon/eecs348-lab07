@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<html>
+<head>
 	<title>Multiplication Table</title>
 </head>
 <body>
@@ -11,8 +11,37 @@
 		<input type="submit" value="Generate Table">
 	</form>
 
-<h3>Multiplication Table for 5:</h3><table border="1"><tbody><tr><td>1<br>(1 x 1)</td><td>2<br>(1 x 2)</td><td>3<br>(1 x 3)</td><td>4<br>(1 x 4)</td><td>5<br>(1 x 5)</td></tr><tr><td>2<br>(2 x 1)</td><td>4<br>(2 x 2)</td><td>6<br>(2 x 3)</td><td>8<br>(2 x 4)</td><td>10<br>(2 x 5)</td></tr><tr><td>3<br>(3 x 1)</td><td>6<br>(3 x 2)</td><td>9<br>(3 x 3)</td><td>12<br>(3 x 4)</td><td>15<br>(3 x 5)</td></tr><tr><td>4<br>(4 x 1)</td><td>8<br>(4 x 2)</td><td>12<br>(4 x 3)</td><td>16<br>(4 x 4)</td><td>20<br>(4 x 5)</td></tr><tr><td>5<br>(5 x 1)</td><td>10<br>(5 x 2)</td><td>15<br>(5 x 3)</td><td>20<br>(5 x 4)</td><td>25<br>(5 x 5)</td></tr></tbody></table>
+	<?php
+	if ($_SERVER["REQUEST_METHOD"] == "POST") { // use post method for the form
+		$number = $_POST['number'];
+		if (is_numeric($number)) { // make sure input is a number
+			echo "<h3>Multiplication Table for $number:</h3>";
+			echo "<table border='1'>"; // setup the html table component
+			echo "<tr>";
+			echo "<td>&times;</td>"; // empty cell for the corner
+			for ($col = 1; $col <= $number; $col++) {
+				echo "<th>$col</th>";
+			}
+			echo "</tr>";
 
+			for ($i = 1; $i <= $number; $i++) {
+				echo "<tr>";
+				
+				echo "<th>$i</th>";
+				
+				for ($j = 1; $j <= $number; $j++) {
+					$result = $i * $j;
+					echo "<td>$result</td>";
+				}
+				echo "</tr>";
+			}
+			echo "</table>";
+		} else {
+			// if input is bad for some reason
+			echo "Please enter a valid number.";
+		}
+	}
+	?>
 
-
-</body></html>
+</body>
+</html>
